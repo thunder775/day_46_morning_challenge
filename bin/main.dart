@@ -22,19 +22,42 @@ List<int> candiesDistributor(int candies, int peopleCount) {
 
   while (candies != 0) {
     for (int i = 0; i < peopleCount; i++) {
-      if (incrementer + i+1 < candies) {
-        output.insert(i, output.removeAt(i) + incrementer + i+1);
-        candies -= incrementer + i;
+      if (incrementer + i + 1 < candies) {
+        output.insert(i, output.removeAt(i) + incrementer + i + 1);
+        candies -= incrementer + i + 1;
       } else {
         output.insert(i, output.removeAt(i) + candies);
         candies = 0;
+        break;
       }
     }
     incrementer += peopleCount;
   }
-  print(output);
+  return output;
+}
+
+// Challenge 2
+// Burst Balloons
+// Given n balloons, indexed from 0 to n-1. Each balloon is painted with a number
+// on it represented by array nums. You are asked to burst all the balloons.
+// If the you burst balloon i you will get nums[left] * nums[i] * nums[right] coins.
+// Here left and right are adjacent indices of i. After the burst, the left and
+// right then becomes adjacent.
+//
+//  Find the maximum coins you can collect by bursting the balloons wisely.
+
+// Stage 1
+// Write a function which calculates total coins earned by bursting a balloon at index 'i'
+
+// Stage 2
+// Implement the algorithm to calculate the maximum coins that can be earned.
+int burstBalloons(List<int> balloons, int index) {
+  balloons.insert(0, 1);
+  balloons.insert(balloons.length - 1, 1);
+  return balloons[index] * balloons[index + 1] * balloons[index + 2];
 }
 
 main() {
-  candiesDistributor(7, 4);
+  candiesDistributor(20, 4);
+  print(burstBalloons([1,2,3,4],3));
 }

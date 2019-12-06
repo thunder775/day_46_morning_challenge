@@ -16,6 +16,25 @@
 // Example
 // Input: candies = 7, num_people = 4
 //  Output: [1,2,3,1]
+List<int> candiesDistributor(int candies, int peopleCount) {
+  List<int> output = List.generate(peopleCount, (int x) => 0);
+  int incrementer = 0;
+
+  while (candies != 0) {
+    for (int i = 0; i < peopleCount; i++) {
+      if (incrementer + i+1 < candies) {
+        output.insert(i, output.removeAt(i) + incrementer + i+1);
+        candies -= incrementer + i;
+      } else {
+        output.insert(i, output.removeAt(i) + candies);
+        candies = 0;
+      }
+    }
+    incrementer += peopleCount;
+  }
+  print(output);
+}
 
 main() {
+  candiesDistributor(7, 4);
 }

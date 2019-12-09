@@ -9,5 +9,6 @@ void main() {
     expect(burstBalloons([1,2,3,4],3), 12);
     expect(burstBalloons([1,2,3,4],0), 2);
     expect(burstBalloons([1,2,3,4],1), 6);
+    expect(maxCoins([3,1,5,8]), 167);
   });
 }

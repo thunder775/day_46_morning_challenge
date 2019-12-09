@@ -1,3 +1,5 @@
+import 'dart:math';
+
 // Distribute Candies to People
 // We distribute some number of candies, to a row of n = num_people people in the following way:
 //
@@ -53,11 +55,31 @@ List<int> candiesDistributor(int candies, int peopleCount) {
 // Implement the algorithm to calculate the maximum coins that can be earned.
 int burstBalloons(List<int> balloons, int index) {
   balloons.insert(0, 1);
-  balloons.insert(balloons.length - 1, 1);
-  return balloons[index] * balloons[index + 1] * balloons[index + 2];
+  balloons.add(1);
+  int value = balloons[index] * balloons[index + 1] * balloons[index + 2];
+  balloons.removeLast();
+  balloons.removeAt(0);
+  balloons.removeAt(index);
+  return value;
+}
+
+int maxCoins(List<int> balloons) {
+  if (balloons.length == 1) {
+    return balloons[0];
+  }
+  List<int> temp = [];
+  for (var i = 0; i < balloons.length; i++) {
+    int removedItem = balloons[i];
+    temp.add(burstBalloons(balloons, i) + maxCoins(balloons));
+    balloons.insert(i, removedItem);
+  }
+  // print(temp);
+  return temp.reduce(max);
 }
 
 main() {
-  candiesDistributor(20, 4);
-  print(burstBalloons([1,2,3,4],3));
+  // print(candiesDistributor(20, 4));
+  // print(burstBalloons([1, 2, 3, 4], 3));
+  print(maxCoins([3, 1, 5, 8]));
+  print(maxCoins([8, 3]));
 }
